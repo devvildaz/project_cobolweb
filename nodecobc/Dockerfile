@@ -1,11 +1,12 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 
-RUN apt update
-RUN apt -y install gcc make libgmp3-dev
-
-RUN apt -y install curl 
-RUN apt -y install wget
+RUN apt-get update -y && apt-get upgrade -y && \
+ apt-get -y install gcc 
+RUN apt-get -y install make 
+RUN apt-get -y install libgmp3-dev
+RUN apt-get -y install curl 
+RUN apt-get -y install wget
 
 WORKDIR /tmp
 
