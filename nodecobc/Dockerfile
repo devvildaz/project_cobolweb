@@ -20,7 +20,13 @@ RUN ./configure
 RUN make 
 RUN make install 
 
+
 WORKDIR /usr/src/app
 EXPOSE 8080
+
+RUN mv /tmp/Open-COBOL-ESQL/copy/ /usr/src/ocesql-copy
+RUN echo 'export CPPFLAGS="-I/usr/include"' >> ~/.bashrc
+RUN echo 'export LDFLAGS="-L/usr/lib"' >> ~/.bashrc
+RUN echo "export COBCPY=/usr/src/ocesql-copy" >> ~/.bashrc
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]

@@ -18,11 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     dni: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.STRING(8)
+      type: DataTypes.STRING(8)
   },
   name: {
       unique: true,
-      type: Sequelize.STRING(48)
+      type: DataTypes.STRING(48)
   },
   }, {
     sequelize,

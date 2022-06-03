@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "cobol_app",
-    "password": "pass",
-    "database": "cobol_app_db",
-    "host": "127.0.0.1",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "postgres",
+    "host": "coboldb",
     "dialect": "postgresql"
   },
   "test": {

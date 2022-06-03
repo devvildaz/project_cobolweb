@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const db = require('./config/db');
+const db = require('./models/index');
 
 const app = express();
 
@@ -20,10 +20,18 @@ app.get('/', (req,res) => {
 
 app.get('/upload',upload.single('debt_file') ,(req, res) => {
     
+});
+
+(async () => {
+    await db.sequelize.authenticate();
+    await db.sequelize.sync();
+    app.listen(PORT, () => {
+        console.log("Deployed on port number",PORT)
+    });
+})().then(() => {
+    console.log("Deployed with also database");
+})
+.catch(() => {
+    console.log("Error with the connection of database");
 })
 
-db.dbConnection.sync();
-
-app.listen(PORT, () => {
-
-});

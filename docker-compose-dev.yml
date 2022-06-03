@@ -1,11 +1,27 @@
 version: "3.9"
+networks:
+  backend:
 
 services:
   cobolweb:
     build: ./nodecobc
     restart: on-failure
+    depends_on:
+      - coboldb
     ports: 
       - "8080:8080"
     volumes: 
       - "./nodecobc:/usr/src/app/"
-    network_mode: "host"
+    networks:
+      - backend
+  coboldb:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+

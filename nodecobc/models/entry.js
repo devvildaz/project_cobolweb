@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Entry.belongsTo(models.App_client, 
+      Entry.belongsTo(models.app_clients, 
         {
           foreignKey: 'dni',
           as: 'client_dni'
@@ -23,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
   },
   dni: {
-      type: Sequelize.STRING(8)
+      type: DataTypes.STRING(8)
   },
   amount: {
       type: DataTypes.DECIMAL(10,2)
