@@ -1,36 +1,26 @@
-FROM ubuntu:20.04
+FROM fedora 
 
-
-RUN apt-get update -y && apt-get upgrade -y && \
- apt-get -y install gcc 
-RUN apt-get -y install make 
-RUN apt-get -y install libgmp3-dev
-RUN apt-get -y install curl 
-RUN apt-get -y install wget
+RUN yum -y update
+RUN yum -y upgrade
+RUN yum -y install nodejs
+RUN yum -y install automake autoconf make 
+RUN yum -y install gcc g++ git
+RUN yum -y install libpq-devel
+RUN yum -y install libtool
+RUN yum -y install gnucobol
 
 WORKDIR /tmp
 
-RUN  wget --no-check-certificate https://ufpr.dl.sourceforge.net/project/gnucobol/gnucobol/3.1/gnucobol-3.1.2.tar.gz
-RUN tar xvf gnucobol-3.1.2.tar.gz
-
-WORKDIR /tmp/gnucobol-3.1.2
-RUN ./configure --without-db
-
+RUN git clone https://github.com/opensourcecobol/Open-COBOL-ESQL.git
+WORKDIR /tmp/Open-COBOL-ESQL
+RUN export CPPFLAGS="-I/usr/include"
+RUN export LDFLAGS="-L/usr/lib"
+RUN autoreconf -f -i
+RUN ./configure
 RUN make 
-RUN make install
-RUN ldconfig 
-
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-
-RUN apt -y install nodejs
+RUN make install 
 
 WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
 EXPOSE 8080
-CMD ["npm", "run", "dev"]
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]

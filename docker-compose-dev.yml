@@ -1,0 +1,15 @@
+version: "3.9"
+
+networks:
+  backend:
+    driver: host 
+
+services:
+  cobolweb:
+    build: ./nodecobc
+    ports: 
+      - "8080:8080"
+    volumes: 
+      - "./nodecobc:/usr/src/app/"
+    networks:
+      - backend
