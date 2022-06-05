@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Entry extends Model {
+  class Balance extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,29 +11,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Entry.belongsTo(models.app_clients, 
-        {
-          foreignKey: 'dni',
-          as: 'client_dni'
-      });
+      
     }
   }
-  Entry.init({
+  Balance.init({
     id: {
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
       type: DataTypes.INTEGER
   },
-  dni: {
-      type: DataTypes.STRING(8)
-  },
   amount: {
       type: DataTypes.DECIMAL(10,2)
   },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  }
   }, {
     sequelize,
-    modelName: 'balances',
+    modelName: 'balance',
+    timestamps: false,
   });
-  return Entry;
+  return Balance;
 };

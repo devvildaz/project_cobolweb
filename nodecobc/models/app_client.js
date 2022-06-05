@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class App_client extends Model {
+  class AppClient extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,10 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+      AppClient.hasMany(models.balance, {
+        foreignKey: 'dni'
+      });
     }
   }
-  App_client.init({
+  AppClient.init({
     dni: {
       allowNull: false,
       primaryKey: true,
@@ -24,9 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       type: DataTypes.STRING(48)
   },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  }
   }, {
     sequelize,
-    modelName: 'app_clients',
+    modelName: 'app_client',
+    timestamps: false,
   });
-  return App_client;
+  return AppClient;
 };

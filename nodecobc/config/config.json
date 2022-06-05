@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "postgres",
     "database": "postgres",
-    "host": "coboldb",
+    "host": "localhost",
     "dialect": "postgresql"
   },
   "test": {

@@ -7,8 +7,21 @@ RUN yum -y install automake autoconf make
 RUN yum -y install gcc g++ git
 RUN yum -y install libpq-devel
 RUN yum -y install libtool
-RUN yum -y install gnucobol
+RUN yum -y install libdb libdb-devel gmp-devel
 
+WORKDIR /tmp
+
+RUN curl https://ufpr.dl.sourceforge.net/project/gnucobol/gnucobol/3.1/gnucobol-3.1.2.tar.gz -o gnucobol
+RUN tar -xvf gnucobol
+
+WORKDIR /tmp/gnucobol-3.1.2/
+RUN ./configure
+RUN make 
+RUN sudo make install 
+RUN sudo ldconfig
+RUN export PATH=$PATH:/usr/local/bin/
+RUN export LD_LIBRARY_PATH=/usr/local/lib
+RUN echo 'export PATH=$PATH:/usr/local/bin/' >> ~/.bashrc
 WORKDIR /tmp
 
 RUN git clone https://github.com/opensourcecobol/Open-COBOL-ESQL.git
@@ -26,7 +39,8 @@ EXPOSE 8080
 
 RUN mv /tmp/Open-COBOL-ESQL/copy/ /usr/src/ocesql-copy
 RUN echo 'export CPPFLAGS="-I/usr/include"' >> ~/.bashrc
-RUN echo 'export LDFLAGS="-L/usr/lib"' >> ~/.bashrc
+RUN echo 'export LDFLAGS=-L/usr/lib' >> ~/.bashrc
 RUN echo "export COBCPY=/usr/src/ocesql-copy" >> ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
