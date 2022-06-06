@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const cors = require("cors");
 const db = require('./models/index');
 const {paths : staticPaths} = require("./utils/constants");
 const env = process.env.NODE_ENV || 'development';
@@ -11,7 +12,7 @@ const router = require('./controllers');
 const exec = util.promisify(require('child_process').exec);
 
 const app = express();
-
+app.use(cors());
 const PORT = 8080;
 
 app.use(express.json());

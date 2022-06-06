@@ -4,7 +4,8 @@
     "password": "postgres",
     "database": "postgres",
     "host": "localhost",
-    "dialect": "postgresql"
+    "dialect": "postgresql",
+    "dialectOptions": { "decimalNumbers": true }
   },
   "test": {
     "username": "root",
