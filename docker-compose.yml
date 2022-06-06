@@ -2,10 +2,8 @@ version: "3.9"
 
 services:
   webserver:
-    image: ngnix:latest
+    image: nginx:latest
     restart: always
-    environment:
-      - name=value
     ports:
       - "80:80"
       - "443:433"
