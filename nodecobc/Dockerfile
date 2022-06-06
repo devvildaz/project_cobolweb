@@ -36,7 +36,7 @@ RUN make install
 
 
 WORKDIR /usr/src/app
-
+EXPOSE 8080
 
 RUN echo "export COBCPY=/usr/src/ocesql-copy"
 RUN mv /tmp/Open-COBOL-ESQL/copy/ /usr/src/ocesql-copy
