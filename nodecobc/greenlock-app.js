@@ -1,3 +1,4 @@
+require('dotenv').config();
 const configDbAndCobol = require("./utils/initDbCobol");
 var homedir = require('path').join(require('os').homedir());
 const green_lock = require('greenlock-express');

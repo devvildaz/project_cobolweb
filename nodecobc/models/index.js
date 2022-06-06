@@ -8,6 +8,7 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 require('express-async-errors');
 const db = {};
+console.log(config);
 
 let sequelize;
 if (config.use_env_variable) {
