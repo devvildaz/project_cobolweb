@@ -1,27 +1,47 @@
 version: "3.9"
 
 services:
-  cobolweb:
-    build: 
-      context: ./nodecobc
-    networks:
-      - backend
-    depends_on:
-      - coboldb
-    ports: 
-      - "443:433"
-      - "80:80"
-    volumes: 
-      - "./nodecobc:/usr/src/app/"
-  coboldb:
-    image: postgres:14.1-alpine
+  # cobolweb:
+  #   build: 
+  #     context: ./nodecobc
+  #   networks:
+  #     - backend
+  #   depends_on:
+  #     - coboldb
+  #   # ports: 
+  #   #   - "443:433"
+  #   #   - "80:80"
+  #   volumes: 
+  #     - "./nodecobc:/usr/src/app/"
+  # coboldb:
+  #   image: postgres:14.1-alpine
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   ports:
+  #     - '8001:5432'
+  #   networks:
+  #     - backend
+  server:
+    images: ngnix:latest
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - name=value
     ports:
-      - '8001:5432'
+      - "80:80"
+      - "443:433"
+    volumes:
+      - ./ngnix/conf/:/etc/ngnix/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
     networks:
       - backend
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+    networks:
+      - backend
+    
 networks:
   backend:
