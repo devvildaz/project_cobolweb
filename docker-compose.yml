@@ -23,7 +23,7 @@ services:
   #     - '8001:5432'
   #   networks:
   #     - backend
-  server:
+  webserver:
     images: ngnix:latest
     restart: always
     environment:
