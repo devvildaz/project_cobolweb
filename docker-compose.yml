@@ -9,7 +9,8 @@ services:
     depends_on:
       - coboldb
     ports: 
-      - "8080:8080"
+      - "443:433"
+      - "80:80"
     volumes: 
       - "./nodecobc:/usr/src/app/"
   coboldb:
