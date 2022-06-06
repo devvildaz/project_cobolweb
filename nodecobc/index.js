@@ -13,7 +13,6 @@ const configDbAndCobol = require("./utils/initDbCobol");
 
 const util = require('util');
 const router = require('./controllers');
-const { isModuleNamespaceObject } = require('util/types');
 const exec = util.promisify(require('child_process').exec);
 
 const app = express();
